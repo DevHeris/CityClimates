@@ -79,14 +79,26 @@ img {
     display: flex;
 }
 
+ul {
+    list-style-type: none;
+}
+
 body {
     background-color: var(--background);
 }
 
+.container {
+    --max-width: 90em;
+    --container-padding: 1rem;
+
+    width: min(var(--max-width), 100% - (var(--container-padding) * 2));
+    margin-inline: auto;
+}
+
 .primary-header {
+    margin-top: 1em;
     justify-content: space-between;
     align-items: center;
-    padding: 1em;
 }
 
 .logo {
@@ -94,16 +106,54 @@ body {
 }
 
 .logo h1 {
-    background: linear-gradient(to left,
-            rgb(222, 199, 222),
-            indigo,
-            rgb(100, 162, 225));
-    background-clip: text;
     color: transparent;
+    font-weight: var(--weight-semiBold);
+    animation: textAnimation 3s linear infinite;
+    animation-fill-mode: backwards;
+}
+
+.tutorial-message {
+    margin-top: 1em;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.8) 100%, transparent 100%), url(images/mark-tegethoff-NbgQfUvKFE0-unsplash.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: .5em;
+    padding: clamp(1.5em, 3vw, 5em) clamp(1em, 3vw, 2.5em);
+    min-height: 60vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.tutorial-message h2 {
+    color: var(--white);
+    font-size: clamp(1em, 3vw, 2.5em);
+}
+
+.tutorial-message p {
+    color: var(--white);
+    font-size: clamp(1em, 3vw, 2em);
+}
+
+.tutorial-message h5 {
+    color: var(--bg-aqi-2);
+    font-size: clamp(1em, 3vw, 1.5em);
     font-weight: var(--weight-semiBold)
 }
 
-/* Toggle Switch Styles */
+.tutorial-message ul li {
+    color: var(--bg-aqi-3);
+    font-size: clamp(.8em, 3vw, 1em);
+    margin-bottom: 1em;
+    text-align: center;
+}
+
+.tutorial-message ul span {
+    color: var(--white);
+    font-weight: var(--weight-semiBold)
+}
+
 .switch-toggle {
     position: relative;
     display: inline-block;
@@ -117,7 +167,6 @@ body {
     height: 0;
 }
 
-/* Slider Styles */
 .slider {
     position: absolute;
     cursor: pointer;
@@ -125,7 +174,11 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    /* background-color: var(--on-surface-variant-2); */
+    background: linear-gradient(to left,
+            rgb(222, 199, 222),
+            rgb(4, 75, 107),
+            rgb(109, 6, 30));
     transition: .4s;
     border-radius: 34px;
 }
@@ -142,12 +195,40 @@ body {
     border-radius: 50%;
 }
 
-/* Change background color when checked */
 input:checked+.slider {
-    background-color: var(--bg-aqi-2);
+    /* background-color: var(--on-bg-aqi-4); */
+    background: linear-gradient(to left,
+            rgb(237, 129, 62),
+            rgb(103, 7, 30),
+            rgba(237, 186, 100, 0.698));
 }
 
-/* Move slider to the right when checked */
 input:checked+.slider:before {
-    transform: translateX(21px);
+    transform: translateX(23px);
+}
+
+@keyframes textAnimation {
+    0% {
+        background: linear-gradient(to left,
+                rgb(237, 129, 62),
+                rgb(103, 7, 30),
+                rgba(237, 186, 100, 0.698));
+        background-clip: text;
+    }
+
+    50% {
+        background: linear-gradient(to left,
+                rgb(222, 199, 222),
+                rgb(4, 75, 107),
+                rgb(109, 6, 30));
+        background-clip: text;
+    }
+
+    100% {
+        background: linear-gradient(to left,
+                rgb(237, 129, 62),
+                rgb(103, 7, 30),
+                rgba(237, 186, 100, 0.698));
+        background-clip: text;
+    }
 }
