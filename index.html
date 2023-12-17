@@ -4,9 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- External libraries and stylesheets -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css" />
     <link rel="stylesheet" href="style.css">
+    <script src="utils.js" defer></script>
+    <script src="suggestion.js" defer></script>
     <script src="index.js" defer></script>
     <title>CityClimates</title>
 </head>
@@ -31,6 +35,22 @@
                 <li>Enter the name of the second city in the <span>"Enter City 2"</span> field.</li>
                 <li>Explore the real-time weather conditions for both cities in the comparison section below.</li>
             </ul>
+        </section>
+
+        <section class="input-section">
+            <div class="columns">
+                <!-- City1 column with suggestion and summary -->
+                <div class="column">
+                    <div id="city1-suggestion"></div>
+                    <div id="city1-summary"></div>
+                </div>
+
+                <!-- City2 column with suggestion and summary -->
+                <div class="column">
+                    <div id="city2-suggestion"></div>
+                    <div id="city2-summary"></div>
+                </div>
+            </div>
         </section>
     </main>
 

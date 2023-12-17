@@ -1,29 +1,35 @@
-// Mock function for fetching city suggestions
-function fetchCitySuggestions(partialCityName) {
-  // Replace this with your logic to fetch suggestions from an API or data source
-  const mockSuggestions = ["Istanbul", "Ibiza", "Ibaraki", "Ibadan", "Ibague"];
-  const filteredSuggestions = mockSuggestions.filter((city) =>
-    city.toLowerCase().includes(partialCityName.toLowerCase())
-  );
+const searchSuggestionConfig = {
+  renderOption: (city) => {
+    return `
+    <i class="fa-solid fa-location-dot"></i>
+         ${city.name}
 
-  // Display suggestions in the autocomplete list
-  displaySuggestions(filteredSuggestions);
-}
+    `;
+  },
+  inputValue: (city) => {
+    return city.name;
+  },
+  fetchData: async (searchTerm) => {
+    const { data } = await axios.get(
+      "https://api.openweathermap.org/data/2.5/find",
+      {
+        params: {
+          appid: "c8eb31824ad47f79a6a694d6682cf9d3",
+          mode: "json",
+          type: "like",
+          q: searchTerm,
+        },
+      }
+    );
+    return data.list;
+  },
+};
 
-// Function to display city suggestions in the autocomplete list
-function displaySuggestions(suggestions) {
-  autocompleteList.innerHTML = ""; // Clear previous suggestions
-
-  suggestions.forEach((city) => {
-    const listItem = document.createElement("li");
-    listItem.textContent = city;
-
-    // Add click event listener to populate input field with selected suggestion
-    listItem.addEventListener("click", function () {
-      cityInput.value = city;
-      autocompleteList.innerHTML = ""; // Clear autocomplete list after selection
-    });
-
-    autocompleteList.appendChild(listItem);
-  });
-}
+// Initialize autocomplete for both sides
+createCitySearchSuggestion({
+  ...searchSuggestionConfig,
+  root: document.querySelector("#city1-suggestion"),
+  onOptionSelect: (city) => {
+    oncitySelect(city, document.getElementById("city2-summary"), "right");
+  },
+});
